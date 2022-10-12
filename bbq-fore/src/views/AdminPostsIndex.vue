@@ -43,8 +43,8 @@
             <el-button v-show="scope.row.top!=0"size="mini" type="primary" plain @click = "deleteTop(scope.row.id)">delete top</el-button>
             </span>
             <span>
-            <el-button v-show="scope.row.marrow==0" size="mini" type="primary" plain @click = "setMarrow(scope.row.id)">set marrow</el-button>
-            <el-button v-show="scope.row.marrow!=0"size="mini" type="primary" plain @click = "deleteMarrow(scope.row.id)">delete marrow</el-button>
+            <el-button v-show="scope.row.marrow==0" size="mini" type="primary" plain @click = "setMarrow(scope.row.id)">set hot</el-button>
+            <el-button v-show="scope.row.marrow!=0"size="mini" type="primary" plain @click = "deleteMarrow(scope.row.id)">delete hot</el-button>
             </span>
             <span>
             <el-button v-show="scope.row.official==0" size="mini" type="primary" plain @click = "setOfficial(scope.row.id)">set official</el-button>
@@ -107,7 +107,7 @@ export default {
     setMarrow(postId) {
       const _this = this
       _this.$axios.get("/posts/admin/marrow/set?postId="+postId).then(res => {
-        MessageBox.alert("set marrow success", 'success', {
+        MessageBox.alert("set hot success", 'success', {
           confirmButtonText: 'ok',
         });
         _this.page(_this.currentPage);
@@ -143,7 +143,7 @@ export default {
     deleteMarrow(postId) {
       const _this = this
       _this.$axios.get("/posts/admin/marrow/delete?postId="+postId).then(res => {
-        MessageBox.alert("delete marrow success", 'success', {
+        MessageBox.alert("delete hot success", 'success', {
           confirmButtonText: 'ok',
         });
         _this.page(_this.currentPage);
