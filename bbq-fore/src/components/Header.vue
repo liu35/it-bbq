@@ -1,6 +1,6 @@
 <template>
   <div class="m-content">
-    <h2 style="color:aquamarine;text-align: center;">Welcome to the BBQ forum</h2>
+    <h2 style="text-align: center;">Welcome to the BBQ forum</h2>
 
     <div class="block">
       <div style="text-align: left" v-show="isAdmin">

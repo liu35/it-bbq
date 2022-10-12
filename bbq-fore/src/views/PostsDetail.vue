@@ -9,7 +9,7 @@
       <p style="font-size: 15px;text-align: right; "> <el-tag>{{ post.type }}</el-tag>
       </p >
       <el-tag size="mini" type="success" v-show="post.top==1">top</el-tag>
-      <el-tag size="mini" type="success" v-show="post.marrow==1">marrow</el-tag>
+      <el-tag size="mini" type="success" v-show="post.marrow==1">hot</el-tag>
       <el-tag size="mini" type="success" v-show="post.official==1">official</el-tag>
       <p>
         <el-button icon="el-icon-edit" v-if="ownBlog" @click="toEdit()" type="primary">edit</el-button>
