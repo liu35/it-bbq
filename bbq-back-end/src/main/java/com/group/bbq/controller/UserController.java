@@ -31,7 +31,6 @@ public class UserController {
         this.userLoginLogService = userLoginLogService;
     }
 
-    @RequiresAuthentication
     @GetMapping("/{id}")
     public Result getById(@PathVariable Long id) {
         User user = userService.getById(id);
@@ -46,13 +45,11 @@ public class UserController {
         return userService.register(user);
     }
 
-    @RequiresAuthentication
     @PostMapping("/edit")
     public Result edit(@Validated @RequestBody User user) {
         return userService.edit(user);
     }
 
-    @RequiresAuthentication
     @PostMapping("/editPassword")
     public Result updatePassword(@Validated @RequestBody UpdateUserPasswordDto updateUserPasswordDto) {
         return userService.updatePassword(updateUserPasswordDto);

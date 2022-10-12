@@ -41,7 +41,6 @@ public class PostsController {
         return postsService.indexDetail(id);
     }
 
-    @RequiresAuthentication
     @PostMapping("/index/edit")
     public Result edit(@Validated @RequestBody Posts posts) {
         return postsService.indexEdit(posts);

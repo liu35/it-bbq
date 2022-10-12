@@ -82,11 +82,7 @@ export default {
     },
     logout() {
       const _this = this
-      _this.$axios.get("/logout", {
-        headers: {
-          "Authorization": localStorage.getItem("token")
-        }
-      }).then(res => {
+      _this.$axios.get("/logout").then(res => {
         _this.$store.commit("REMOVE_INFO")
         _this.$router.push({ name: 'PostsIndex' }).catch(() => {})
         _this.$router.go(0)

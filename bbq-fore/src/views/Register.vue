@@ -36,7 +36,7 @@
           </el-form-item>
 
           <el-form-item label="Avatar" prop="avatar">
-            <el-upload class="avatar-uploader" action="http://localhost:8888/upload" :show-file-list="false"
+            <el-upload class="avatar-uploader" action="http://43.159.34.72:8888/upload" :show-file-list="false"
               :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
               <img v-if="ruleForm.avatar" :src="ruleForm.avatar" class="avatar">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>

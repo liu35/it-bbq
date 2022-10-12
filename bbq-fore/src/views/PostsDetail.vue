@@ -72,7 +72,7 @@ export default {
               }
             })
         }else {
-          _this.$alert('delete failed')
+          this.$alert('delete failed')
         }
         console.log(res)
       })
@@ -89,27 +89,19 @@ export default {
       }
     },
     follow(authorId) {
-      this.$axios.get('/follow/add?authorId=' + authorId, {
-        headers: {
-          "Authorization": localStorage.getItem("token")
-        }
-      }).then(res => {
-        if (res.data.code == 200) {
+      this.$axios.get('/follow/add?authorId=' + authorId + '&followerId=' +  this.$store.getters.getUser.id).then(
           this.$alert('follow successful', 'notice', {
               confirmButtonText: 'OK',
               callback: action => {
                 this.$router.go(0)
               }
             })
-        }
-      })
+    )
     },
     unfollow(authorId) {
       this.$axios.delete('/follow/delete', {
-        params: {authorId : authorId},
-        headers: {
-          "Authorization": localStorage.getItem("token")
-        }
+        params: {authorId : authorId,
+        followerId : this.$store.getters.getUser.id},
       }).then(res => {
         if (res.data.code == 200) {
           this.$alert('unfollow successful', 'notice', {

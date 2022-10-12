@@ -13,6 +13,7 @@
     <version>1.0.0-SNAPSHOT</version>
     <name>bbq</name>
     <description>bbq</description>
+    <packaging>jar</packaging>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -107,6 +108,7 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                    <mainClass>com.group.bbq.BbqApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>
