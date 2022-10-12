@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface FollowService extends IService<Follow> {
 
-    Result add(Long authorId, Long followerId);
+    Result add(Long authorId);
 
-    Result delete(Long authorId, Long followerId);
+    Result delete(Long authorId);
 }

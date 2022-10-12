@@ -23,7 +23,7 @@
     <div class="maction">
 
 
-      <el-menu default-active="activeIndex" class="el-menu-demo" mode="horizontal" background-color="#635f5e" text-color="#FFFFFF">
+      <el-menu default-active="activeIndex" class="el-menu-demo" mode="horizontal" background-color="#635f5e" text-color="#FFFFFF" >
         <el-menu-item index="1">
           <span>
             <el-link href="/posts/index">All Posts</el-link>
@@ -43,6 +43,14 @@
           <span>
             <el-link type="success" href="/posts/index/add">
               CREATE POST
+            </el-link>
+          </span>
+        </el-menu-item>
+
+        <el-menu-item index="4">
+          <span>
+            <el-link type="success" href="/user/index">
+              USER CENTER
             </el-link>
           </span>
         </el-menu-item>
@@ -82,7 +90,11 @@ export default {
     },
     logout() {
       const _this = this
-      _this.$axios.get("/logout").then(res => {
+      _this.$axios.get("/logout", {
+        headers: {
+          "Authorization": localStorage.getItem("token")
+        }
+      }).then(res => {
         _this.$store.commit("REMOVE_INFO")
         _this.$router.push({ name: 'PostsIndex' }).catch(() => {})
         _this.$router.go(0)

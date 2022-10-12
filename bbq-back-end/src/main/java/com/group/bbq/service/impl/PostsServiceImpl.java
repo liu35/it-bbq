@@ -92,16 +92,17 @@ public class PostsServiceImpl extends ServiceImpl<PostsMapper, Posts> implements
         if (posts.getId() != null) {
             p = postsMapper.selectById(posts.getId());
             p.setUpdateTime(LocalDateTime.now());
-
-            Assert.isTrue(p.getAuthorId().longValue() == posts.getAuthorId().longValue(), "No permission to edit");
+            System.out.println(ShiroUtil.getProfile().getId());
+            Assert.isTrue(p.getAuthorId().longValue() == ShiroUtil.getProfile().getId().longValue(), "No permission to edit");
         } else {
             p = new Posts();
             p.setCreateTime(LocalDateTime.now());
             p.setUpdateTime(LocalDateTime.now());
             p.setAuditState("PASS");
+            p.setAuthorId(ShiroUtil.getProfile().getId());
             p.setContentType("MARKDOWN");
         }
-        BeanUtil.copyProperties(posts, p, "id", "createTime", "auditState", "contentType");
+        BeanUtil.copyProperties(posts, p, "id", "createTime", "auditState", "authorId", "contentType");
 
 
         ArticleType articleType = articleTypeMapper.selectById(p.getTypeId());

@@ -29,13 +29,15 @@ public class FollowController {
         this.followService = followService;
     }
 
+    @RequiresAuthentication
     @GetMapping("/add")
-    public Result follow(Long authorId, Long followerId) {
-        return followService.add(authorId, followerId);
+    public Result follow(Long authorId) {
+        return followService.add(authorId);
     }
 
+    @RequiresAuthentication
     @DeleteMapping("/delete")
-    public Result unfollow(Long authorId, Long followerId) {
-        return followService.delete(authorId,followerId);
+    public Result unfollow(Long authorId) {
+        return followService.delete(authorId);
     }
 }

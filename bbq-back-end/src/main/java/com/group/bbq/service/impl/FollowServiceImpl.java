@@ -29,22 +29,22 @@ public class FollowServiceImpl extends ServiceImpl<FollowMapper, Follow> impleme
     }
 
     @Override
-    public Result add(Long authorId, Long followerId) {
-        if (ObjectUtil.isNotEmpty(getFollow(authorId, followerId))) {
+    public Result add(Long authorId) {
+        if (ObjectUtil.isNotEmpty(getFollow(authorId))) {
             return Result.fail("You're already following the user");
         }
 
         Follow follow = new Follow();
         follow.setFollowed(authorId);
-        follow.setFollower(followerId);
+        follow.setFollower(ShiroUtil.getProfile().getId());
         follow.setCreateTime(LocalDateTime.now());
         followMapper.insert(follow);
         return Result.succ(null);
     }
 
     @Override
-    public Result delete(Long authorId, Long followerId) {
-        Follow follow = getFollow(authorId, followerId);
+    public Result delete(Long authorId) {
+        Follow follow = getFollow(authorId);
 
         if (ObjectUtil.isEmpty(follow)) {
             return Result.fail("You're not following the user anymore");
@@ -53,9 +53,9 @@ public class FollowServiceImpl extends ServiceImpl<FollowMapper, Follow> impleme
         return Result.succ(null);
     }
 
-    private Follow getFollow(Long authorId, Long followerId) {
+    private Follow getFollow(Long authorId) {
         return followMapper.selectOne(new QueryWrapper<Follow>()
                 .eq("followed", authorId)
-                .eq("follower", followerId));
+                .eq("follower", ShiroUtil.getProfile().getId()));
     }
 }

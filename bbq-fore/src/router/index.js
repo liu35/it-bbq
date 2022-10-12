@@ -11,6 +11,7 @@ import Admin from "../views/Admin.vue";
 import AdminPostsIndex from "@/views/AdminPostsIndex";
 import AdminUserIndex from "@/views/AdminUserIndex";
 import AdminLoginLog  from "@/views/AdminLoginLog";
+import UserIndex  from "@/views/UserIndex";
 
 Vue.use(VueRouter)
 
@@ -96,6 +97,12 @@ const routes = [
     path: '/admin/login/log',
     name: 'AdminLoginLog',
     component: AdminLoginLog
+  },
+  {
+    // user index
+    path: '/user/index',
+    name: 'UserIndex',
+    component: UserIndex
   }
 ]
 

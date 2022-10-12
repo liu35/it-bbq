@@ -38,7 +38,6 @@ export default {
     return {
       ruleForm: {
         id: '',
-        authorId: '',
         title: '',
         typeId: '',
         markdownContent: '',
@@ -65,8 +64,11 @@ export default {
         if (valid) {
 
           const _this = this
-          this.ruleForm.authorId = this.$store.getters.getUser.id;
-          this.$axios.post('/posts/index/edit', this.ruleForm).then(res => {
+          this.$axios.post('/posts/index/edit', this.ruleForm, {
+            headers: {
+              "Authorization": localStorage.getItem("token")
+            }
+          }).then(res => {
             console.log(res)
             _this.$alert('operate successful', 'notice', {
               confirmButtonText: 'OK',
