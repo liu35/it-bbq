@@ -16,6 +16,12 @@
         <el-button icon="el-icon-edit" v-if="ownBlog" @click="toDelete()" type="primary">delete</el-button>
       </p >
     </div>
+    <div class="demo_input">
+      <el-col :span="20">
+      <el-input v-model="link" size="10px" disabled="true"></el-input>
+      </el-col>
+      <el-button type="primary" @click="copyUrl" size="mini" style="margin-left: 20px">Copy the link to share</el-button>
+    </div>
     <div style="text-align: center; margin-left: 20px;" @click="approvals()">
       <span class="el-icon-user">{{post.authorName}}
         <el-button @click="follow(post.authorId)" v-if="!ownBlog && hasLogin" round size="small">Follow author</el-button>
@@ -54,10 +60,25 @@ export default {
       },
       ownBlog: false,
       isClick:false,
-      hasLogin: false
+      hasLogin: false,
+      link: window.location.href,
     }
   },
   methods: {
+    copyUrl() {
+      const input = document.createElement("input");
+      document.body.appendChild(input);
+      input.setAttribute("value", this.link);
+      input.select();
+      if (document.execCommand("copy")) {
+        document.execCommand("copy");
+      }
+      document.body.removeChild(input);
+      this.$message({
+        message: 'copy successfully',
+        type: 'success'
+      });
+    },
     toEdit() {
       this.$router.push({ name: 'PostsIndexEdit', params: { postId: this.post.id } })
     },
