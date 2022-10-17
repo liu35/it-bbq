@@ -60,7 +60,7 @@
 </template>
 
 <script>
-
+import UserIndex  from "@/views/UserIndex";
 export default {
   name: "UserEditDia",
   data() {
@@ -133,15 +133,48 @@ export default {
       this.form.newAvatar = res.data;
     },
     submit() {
-      updateUser(this.form)
-          .then((res) => {
-            console.log(res);
-            this.dialogVisible = false;
-            this.$emit("flesh");
+
+      var user = {
+        id: this.form.id,
+        username: this.form.username,
+        password: this.form.password,
+        sex: this.form.sex,
+        signature: this.form.signature,
+        email: this.form.email
+      }
+      if(this.form.newAvatar != ""){
+        user.avatar = this.form.newAvatar;
+        var userInfo = this.$store.getters.getUser;
+        userInfo.avatar = this.form.newAvatar;
+        this.$store.commit("UPDATE_USERINFO",userInfo);
+
+      }
+
+      this.$axios.post('/user/edit', user).then(res => {
+
+        console.log(res)
+        if(this.form.newPassword != ""){
+          this.$axios.post('/user/editPassword', user).then(res => {
+
+            console.log(res)
+            this.$alert('Edit the password successful', 'notice', {
+              confirmButtonText: 'OK',
+            });
           })
-          .catch((err) => {
-            console.log(err);
-          });
+        }
+        this.$alert('Edit successful', 'notice', {
+          confirmButtonText: 'OK',
+          callback: action => {
+            var userInfo = this.$store.getters.getUser;
+            userInfo.username = this.form.username;
+            userInfo.sex = this.form.sex;
+            userInfo.signature = this.form.signature;
+            this.$store.commit('UPDATE_USERINFO', userInfo);
+            this.dialogVisible = false;
+            this.$router.push({name : 'UserIndex', params : {userId : this.$store.getters.getUser.id}});
+          }
+        });
+      })
     },
     handleClose() {
       this.dialogVisible = false;

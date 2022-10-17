@@ -14,28 +14,28 @@
               <i class="el-icon-picture-outline"></i>
               avatar
             </template>
-            <el-avatar :size="60" :src="$store.getters.getUser.avatar"></el-avatar>
+            <el-avatar :size="60" :src="this.avatar"></el-avatar>
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
               <i class="el-icon-user"></i>
               username
             </template>
-            {{ $store.getters.getUser.username }}
+            {{ this.username }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
               <i class="el-icon-s-custom"></i>
               role
             </template>
-            <el-tag size="small">{{ $store.getters.getUser.role }}</el-tag>
+            <el-tag size="small">{{ this.role }}</el-tag>
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
               <i class="el-icon-odometer"></i>
               signature
             </template>
-            {{ $store.getters.getUser.signature }}
+            {{ this.signature }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
@@ -43,28 +43,28 @@
               <i class="el-icon-female"></i>
               sex
             </template>
-            <el-tag size="small">{{ $store.getters.getUser.sex }}</el-tag>
+            <el-tag size="small">{{ this.sex }}</el-tag>
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
               <i class="el-icon-message"></i>
               Email
             </template>
-            {{ $store.getters.getUser.email }}
+            {{ this.email }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
               <i class="el-icon-date"></i>
               create date
             </template>
-            {{ $store.getters.getUser.createTime }}
+            {{ this.createTime}}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
               <i class="el-icon-date"></i>
               update date
             </template>
-            {{ $store.getters.getUser.updateTime }}
+            {{ this.updateTime }}
           </el-descriptions-item>
         </el-descriptions>
       </el-card>
@@ -79,10 +79,35 @@ import Header from "@/components/Header";
 export default {
   name: "UserIndex",
   components: {UserEditDia, Header},
+  data(){
+    return{
+      id: this.$route.params.userId,
+      avatar: "",
+      username: "",
+      role: "",
+      signature:"",
+      sex: "",
+      email: "",
+      createTime: "",
+      updateTime: "",
+    }
+  },
   methods: {
     edit() {
       this.$refs.dia.open();
     }
+  },
+  created() {
+    this.$axios.get("/user/" + this.id).then(res => {
+      this.avatar = res.data.data.avatar;
+      this.username = res.data.data.username;
+      this.role = res.data.data.role;
+      this.signature = res.data.data.signature;
+      this.sex = res.data.data.sex;
+      this.email = res.data.data.email;
+      this.createTime = res.data.data.createTime;
+      this.updateTime = res.data.data.updateTime;
+    })
   }
 }
 </script>

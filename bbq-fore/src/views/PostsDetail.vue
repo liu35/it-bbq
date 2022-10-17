@@ -75,7 +75,7 @@ export default {
       }
       document.body.removeChild(input);
       this.$message({
-        message: 'copy successfully',
+        message: 'copy successful',
         type: 'success'
       });
     },
