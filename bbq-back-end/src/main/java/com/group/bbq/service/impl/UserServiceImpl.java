@@ -57,8 +57,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (ObjectUtil.isEmpty(userMapper.selectById(user.getId()))) {
             return Result.fail("user is not exist");
         }
+        if (oldUser.getId().equals(user.getId()) && ObjectUtil.isNotEmpty(oldUser)) {
+            if (!oldUser.getPassword().equals(SecureUtil.md5(user.getPassword()))) {
+                return Result.fail("Incorrect password");
+            }
+        }
+
 
         user.setUpdateTime(LocalDateTime.now());
+        user.setPassword(SecureUtil.md5(user.getPassword()));
         Assert.isTrue(userMapper.updateById(user) > 0, "edit failed");
         return Result.succ(user);
     }

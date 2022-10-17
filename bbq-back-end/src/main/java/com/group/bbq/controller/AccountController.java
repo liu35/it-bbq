@@ -74,6 +74,8 @@ public class AccountController {
                         .put("state", user.getState())
                         .put("createTime", user.getCreateTime())
                         .put("sex", user.getSex())
+                        .put("updateTime", user.getUpdateTime())
+                        .put("signature", user.getSignature())
                 .map()
         );
     }
