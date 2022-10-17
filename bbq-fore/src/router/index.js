@@ -8,10 +8,10 @@ import Register from '../views/Register.vue'
 import PostIndexByType from '../views/PostsIndexByType.vue'
 import PostIndexSearch from '../views/PostsIndexSearch.vue'
 import Admin from "../views/Admin.vue";
-import AdminPostsIndex from "../views/AdminPostsIndex";
-import AdminUserIndex from "../views/AdminUserIndex";
-import AdminLoginLog  from "../views/AdminLoginLog";
-import UserIndex  from "../views/UserIndex";
+import AdminPostsIndex from "@/views/AdminPostsIndex";
+import AdminUserIndex from "@/views/AdminUserIndex";
+import AdminLoginLog  from "@/views/AdminLoginLog";
+import UserIndex  from "@/views/UserIndex";
 
 Vue.use(VueRouter)
 
@@ -100,7 +100,7 @@ const routes = [
   },
   {
     // user index
-    path: '/user/index',
+    path: '/user/index/:userId',
     name: 'UserIndex',
     component: UserIndex
   }

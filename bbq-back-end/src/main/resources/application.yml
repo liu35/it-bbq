@@ -15,6 +15,6 @@ spring:
   resources:
     static-locations:
 
-# Change the directory of this section when deploying(based on your on disk location)
+# Change the directory of this section when deploying
 upload:
   path: D:/bbq/upload/

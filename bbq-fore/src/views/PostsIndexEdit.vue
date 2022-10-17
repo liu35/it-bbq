@@ -6,7 +6,7 @@
         <el-form-item label="title" prop="title">
           <el-input v-model="ruleForm.title"></el-input>
         </el-form-item>
-        <el-form-item label="description" prop="htmlContent">
+        <el-form-item label="TL;DR" prop="htmlContent">
           <el-input v-model="ruleForm.htmlContent"></el-input>
         </el-form-item>
         <el-form-item label="category" prop="category">
@@ -31,6 +31,8 @@
 
 <script>
 import Header from "../components/Header";
+import {MessageBox} from "element-ui";
+
 export default {
   name: "PostsIndexEdit",
   components: { Header },
@@ -49,7 +51,7 @@ export default {
           { required: true, message: 'please enter titile', trigger: 'blur' }
         ],
         htmlContent: [
-        { required: true, message: 'please enter description', trigger: 'blur' }
+        { required: true, message: 'please enter the short summary', trigger: 'blur' }
         ],
         markdownContent: [
           { trequired: true, message: 'please enter content', trigger: 'blur' }
@@ -95,6 +97,16 @@ export default {
     }
   },
   created() {
+    console.log(this.$store.getters.getUser.id)
+    if (!this.$store.getters.getUser.id) {
+      MessageBox.alert("please login!", 'notice', {
+        confirmButtonText: 'ok',
+        callback: action => {
+          this.$router.push("/login")
+        }
+      })
+
+    }
     this.getTypeList();
     const postId = this.$route.params.postId
     console.log(postId)

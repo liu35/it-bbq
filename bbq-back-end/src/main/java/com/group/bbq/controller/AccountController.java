@@ -71,11 +71,13 @@ public class AccountController {
                 .put("avatar", user.getAvatar())
                 .put("email", user.getEmail())
                 .put("role", user.getRole())
+                        .put("state", user.getState())
+                        .put("createTime", user.getCreateTime())
+                        .put("sex", user.getSex())
                 .map()
         );
     }
 
-    @RequiresAuthentication
     @GetMapping("/logout")
     public Result logout() {
         SecurityUtils.getSubject().logout();

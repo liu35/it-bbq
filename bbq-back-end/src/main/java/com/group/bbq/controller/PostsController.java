@@ -41,7 +41,6 @@ public class PostsController {
         return postsService.indexDetail(id);
     }
 
-    @RequiresAuthentication
     @PostMapping("/index/edit")
     public Result edit(@Validated @RequestBody Posts posts) {
         return postsService.indexEdit(posts);
@@ -49,8 +48,8 @@ public class PostsController {
 
 
     @GetMapping("/index/approval")
-    public Result approval(Long postId, Integer click) {
-        return postsService.approval(postId, click);
+    public Result approval(Long postId, Long userId,Integer click) {
+        return postsService.approval(postId, userId,click);
     }
 
     @GetMapping("/index/views")

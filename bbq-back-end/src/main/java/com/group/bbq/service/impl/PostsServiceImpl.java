@@ -8,8 +8,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.group.bbq.common.lang.Result;
 import com.group.bbq.entity.ArticleType;
+import com.group.bbq.entity.PostApproval;
 import com.group.bbq.entity.Posts;
 import com.group.bbq.mapper.ArticleTypeMapper;
+import com.group.bbq.mapper.PostApprovalMapper;
 import com.group.bbq.mapper.PostsMapper;
 import com.group.bbq.mapper.UserMapper;
 import com.group.bbq.service.PostsService;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -31,12 +34,14 @@ public class PostsServiceImpl extends ServiceImpl<PostsMapper, Posts> implements
     private final PostsMapper postsMapper;
     private final ArticleTypeMapper articleTypeMapper;
     private final UserMapper userMapper;
+    private final PostApprovalMapper postApprovalMapper;
 
     @Autowired
-    public PostsServiceImpl(PostsMapper postsMapper, ArticleTypeMapper articleTypeMapper, UserMapper userMapper) {
+    public PostsServiceImpl(PostsMapper postsMapper, ArticleTypeMapper articleTypeMapper, UserMapper userMapper , PostApprovalMapper postApprovalMapper) {
         this.postsMapper = postsMapper;
         this.articleTypeMapper = articleTypeMapper;
         this.userMapper = userMapper;
+        this.postApprovalMapper = postApprovalMapper;
     }
 
 
@@ -92,17 +97,16 @@ public class PostsServiceImpl extends ServiceImpl<PostsMapper, Posts> implements
         if (posts.getId() != null) {
             p = postsMapper.selectById(posts.getId());
             p.setUpdateTime(LocalDateTime.now());
-            System.out.println(ShiroUtil.getProfile().getId());
-            Assert.isTrue(p.getAuthorId().longValue() == ShiroUtil.getProfile().getId().longValue(), "No permission to edit");
+
+            Assert.isTrue(p.getAuthorId().longValue() == posts.getAuthorId().longValue(), "No permission to edit");
         } else {
             p = new Posts();
             p.setCreateTime(LocalDateTime.now());
             p.setUpdateTime(LocalDateTime.now());
             p.setAuditState("PASS");
-            p.setAuthorId(ShiroUtil.getProfile().getId());
             p.setContentType("MARKDOWN");
         }
-        BeanUtil.copyProperties(posts, p, "id", "createTime", "auditState", "authorId", "contentType");
+        BeanUtil.copyProperties(posts, p, "id", "createTime", "auditState", "contentType");
 
 
         ArticleType articleType = articleTypeMapper.selectById(p.getTypeId());
@@ -118,20 +122,32 @@ public class PostsServiceImpl extends ServiceImpl<PostsMapper, Posts> implements
     }
 
     @Override
-    public Result approval(Long postId, Integer click) {
+    public Result approval(Long postId, Long userId,Integer click) {
 
         Posts posts = postsMapper.selectById(postId);
         if (ObjectUtil.isEmpty(posts)) {
             return Result.fail("the posts is not exist");
         }
 
+        List<PostApproval> postApprovals = postApprovalMapper.selectList(
+                new QueryWrapper<PostApproval>().eq("post_id", postId).eq("user_id", userId));
+        if (ObjectUtil.isNotEmpty(postApprovals)) {
+            return Result.fail("you have already approved");
+        }
+
+
         if (click == 0) {
             posts.setApprovals(posts.getApprovals() + 1);
+            PostApproval postApproval = new PostApproval();
+            postApproval.setPostId(postId);
+            postApproval.setUserId(userId);
+            postApprovalMapper.insert(postApproval);
         }else if(click == 1) {
             posts.setApprovals(posts.getApprovals() -1);
+            postApprovalMapper.delete(new QueryWrapper<PostApproval>().eq("post_id", postId).eq("user_id", userId));
         }
         postsMapper.updateById(posts);
-        return Result.succ(null);
+        return Result.succ("approval");
     }
 
     @Override

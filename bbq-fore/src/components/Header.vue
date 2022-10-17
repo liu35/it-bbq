@@ -47,13 +47,13 @@
           </span>
         </el-menu-item>
 
-        <el-menu-item index="4">
-          <span>
-            <el-link type="success" href="/user/index">
-              USER CENTER
-            </el-link>
-          </span>
-        </el-menu-item>
+        <el-submenu index="4">
+
+          <template slot="title">USER CENTER</template>
+          <el-menu-item index="4-1" @click="getUserInfo">
+            USER INFO
+          </el-menu-item>
+        </el-submenu>
 
 
         <div style="margin-left: 800px;margin-top: 12px;">
@@ -69,11 +69,14 @@
 </template>
 
 <script>
+import {MessageBox} from "element-ui";
+
 export default {
   name: "Header",
   data() {
     return {
       user: {
+        id:'',
         username: 'please login',
         avatar: 'https://img2.baidu.com/it/u=2306449352,310199388&fm=253&fmt=auto&app=138&f=PNG?w=500&h=343'
       },
@@ -114,6 +117,19 @@ export default {
     },
     search() {
        this.$router.push({name : 'PostIndexSearch', params : {search: this.searchData}})
+    },
+    getUserInfo(){
+      if (this.$store.getters.getUser == null) {
+        MessageBox.alert("please login!", 'notice', {
+          confirmButtonText: 'ok',
+          callback: action => {
+            this.$router.push("/login")
+          }
+        })
+
+      }else {
+        this.$router.push({name : 'UserIndex', params : {userId : this.user.id}})
+      }
     }
   },
   created() {
@@ -123,6 +139,7 @@ export default {
       this.user.username = this.$store.getters.getUser.username
       this.user.avatar = this.$store.getters.getUser.avatar
       this.hasLogin = true
+      this.user.id = this.$store.getters.getUser.id
       if (this.$store.getters.getUser.role == "ADMIN") {
         this.isAdmin = true
       }

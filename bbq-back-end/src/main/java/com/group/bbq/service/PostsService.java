@@ -17,7 +17,7 @@ public interface PostsService extends IService<Posts> {
 
     Result indexEdit(Posts posts);
 
-    Result approval(Long postId, Integer click);
+    Result approval(Long postId, Long userId ,Integer click);
 
     Result views(Long postId);
 

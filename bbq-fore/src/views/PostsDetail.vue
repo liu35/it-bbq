@@ -72,21 +72,26 @@ export default {
               }
             })
         }else {
-          _this.$alert('delete failed')
+          this.$alert('delete failed')
         }
         console.log(res)
       })
     },
     approvals() {
       if (this.isClick) {
-        this.$axios.get('/posts/index/approval?postId=' + this.post.id + "&click=" + 1).then(res => {
+        this.$axios.get('/posts/index/approval?postId=' + this.post.id + '&userId=' + this.$store.getters.getUser.id +"&click=" + 1).then(res => {
           this.isClick = false;
-        })
-      }else {
-        this.$axios.get('/posts/index/approval?postId=' + this.post.id + "&click=" + 0).then(res => {
-          this.isClick = true;
+          this.$alert('approval successful')
         })
       }
+      else {
+        this.$axios.get('/posts/index/approval?postId=' + this.post.id + '&userId=' + this.$store.getters.getUser.id + "&click=" + 0).then(res => {
+          this.isClick = true;
+          this.$alert('approval successful')
+        })
+      }
+
+
     },
     follow(authorId) {
       this.$axios.get('/follow/add?authorId=' + authorId, {

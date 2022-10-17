@@ -13,7 +13,7 @@
     </div>
 
     <div class="maction">
-      <el-menu default-active="1" class="el-menu-demo" mode="horizontal" background-color="#635f5e" text-color="#FFFFFF">
+      <el-menu default-active="" class="el-menu-demo" mode="horizontal" background-color="#635f5e" text-color="#FFFFFF">
         <el-menu-item index="1">
           <span>
             <el-link href="/admin/posts/index">POST MANAGEMENT</el-link>
