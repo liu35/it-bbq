@@ -104,7 +104,6 @@ export default {
 
 <style scoped>
 .m-content {
-  max-width: 1200px;
   margin: 0 auto;
   text-align: left;
 }
