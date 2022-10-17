@@ -5,16 +5,16 @@
 
     <div>
       <el-card>
-        <el-descriptions class="margin-top" title="Info" :column="2" border>
+        <el-descriptions class="margin-top" title="user info" :column="2" border>
           <template slot="extra">
-            <el-button type="primary" v-if="$route.params.userId==$store.getters.getUser.id" size="small">edit</el-button>
+            <el-button type="primary" v-if="$route.params.userId==$store.getters.getUser.id" size="small" @click="edit">edit</el-button>
           </template>
           <el-descriptions-item>
             <template slot="label">
               <i class="el-icon-picture-outline"></i>
               avatar
             </template>
-            <img class="img" :src="$store.getters.getUser.avatar" alt="" />
+            <el-avatar :size="60" :src="$store.getters.getUser.avatar"></el-avatar>
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
@@ -59,24 +59,33 @@
             </template>
             {{ $store.getters.getUser.createTime }}
           </el-descriptions-item>
+          <el-descriptions-item>
+            <template slot="label">
+              <i class="el-icon-date"></i>
+              update date
+            </template>
+            {{ $store.getters.getUser.updateTime }}
+          </el-descriptions-item>
         </el-descriptions>
       </el-card>
     </div>
+    <user-edit-dia ref="dia"></user-edit-dia>
   </div>
 </template>
 
 <script>
+import UserEditDia from "@/views/UserEditDia";
 import Header from "@/components/Header";
 export default {
   name: "UserIndex",
-  components: {Header}
+  components: {UserEditDia, Header},
+  methods: {
+    edit() {
+      this.$refs.dia.open();
+    }
+  }
 }
 </script>
 
 <style scoped>
-.img {
-  width: 80px;
-  height: 80px;
-}
-
 </style>

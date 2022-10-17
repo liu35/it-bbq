@@ -7,7 +7,7 @@
         <el-timeline-item :timestamp="post.createTime" placement="top" v-for="post in posts">
           <el-card>
             <el-tag size="mini" type="success" v-show="post.top==1">top</el-tag>
-            <el-tag size="mini" type="success" v-show="post.marrow==1">hot</el-tag>
+            <el-tag size="mini" type="success" v-show="post.marrow==1">ho</el-tag>
             <el-tag size="mini" type="success" v-show="post.official==1">official</el-tag>
             <h2 style="text-align: center">
               <router-link :to="{name: 'PostsDetail', params: {postId: post.id}}">

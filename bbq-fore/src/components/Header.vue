@@ -26,7 +26,7 @@
       <el-menu default-active="activeIndex" class="el-menu-demo" mode="horizontal" background-color="#635f5e" text-color="#FFFFFF" >
         <el-menu-item index="1">
           <span>
-            <el-link href="/posts/index">All Posts</el-link>
+            <el-link href="/posts/index">All POSTS</el-link>
           </span>
         </el-menu-item>
 
