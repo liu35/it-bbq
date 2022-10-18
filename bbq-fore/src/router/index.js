@@ -12,6 +12,7 @@ import AdminPostsIndex from "@/views/AdminPostsIndex";
 import AdminUserIndex from "@/views/AdminUserIndex";
 import AdminLoginLog  from "@/views/AdminLoginLog";
 import UserIndex  from "@/views/UserIndex";
+import PostComments from "@/views/PostComments";
 
 Vue.use(VueRouter)
 
@@ -103,6 +104,12 @@ const routes = [
     path: '/user/index/:userId',
     name: 'UserIndex',
     component: UserIndex
+  },
+  {
+    // post comments
+    path: '/post/comments/:postId',
+    name: 'PostComments',
+    component: PostComments
   }
 ]
 

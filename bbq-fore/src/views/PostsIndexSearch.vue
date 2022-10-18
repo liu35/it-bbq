@@ -20,6 +20,7 @@
               </div>
               <p>{{post.htmlContent}}</p >
               <div style="text-align:right">
+                <p class="el-icon-s-comment">{{post.comments}}</p >&emsp;
               <p class="el-icon-thumb">{{post.approvals}}</p >&emsp;&emsp;&emsp;
               <p class="el-icon-view">{{post.views}}</p >
             </div>
