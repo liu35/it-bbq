@@ -2,6 +2,7 @@ package com.group.bbq.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -59,16 +60,27 @@ public class PostsServiceImpl extends ServiceImpl<PostsMapper, Posts> implements
                     .orderByDesc("top").orderByDesc("marrow").orderByDesc("official")
                     .orderByDesc("create_time");
         } else {
-            postsQueryWrapper.eq("is_delete", 0)
-                    .eq("audit_state", "PASS")
-                    .like("title", search)
-                    .or()
-                    .like("markdown_content", search)
-                    .or()
-                    .like("html_content", search)
-                    .orderByDesc("top").orderByDesc("marrow").orderByDesc("official")
-                    .orderByDesc("create_time");
+            String[] split = search.split(" ");
+            postsQueryWrapper.eq("is_delete", 0);
+
+            if (split.length>0) {
+                for (String s:split) {
+                    if (StrUtil.isBlank(s) || StrUtil.isEmpty(s)) {
+                        break;
+                    }
+                    postsQueryWrapper
+                            .eq("audit_state", "PASS")
+                            .like("title", s)
+                            .or()
+                            .like("markdown_content", s)
+                            .or()
+                            .like("html_content", s);
+                }
+            }
+
         }
+        postsQueryWrapper.orderByDesc("top").orderByDesc("marrow").orderByDesc("official")
+                .orderByDesc("create_time");
 
         if (ObjectUtil.isNotEmpty(typeId)) {
             postsQueryWrapper.eq("type_id", typeId);
@@ -149,6 +161,21 @@ public class PostsServiceImpl extends ServiceImpl<PostsMapper, Posts> implements
         }
         postsMapper.updateById(posts);
         return Result.succ("approval");
+    }
+
+    @Override
+    public Result deleteApproval(Long postId, Long userId) {
+
+        Posts posts = postsMapper.selectById(postId);
+        if (ObjectUtil.isEmpty(posts)) {
+            return Result.fail("the posts is not exist");
+        }
+
+
+        posts.setApprovals(posts.getApprovals() -1);
+        postApprovalMapper.delete(new QueryWrapper<PostApproval>().eq("post_id", postId).eq("user_id", userId));
+        postsMapper.updateById(posts);
+        return Result.succ(null);
     }
 
     @Override

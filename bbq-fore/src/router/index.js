@@ -13,6 +13,11 @@ import AdminUserIndex from "@/views/AdminUserIndex";
 import AdminLoginLog  from "@/views/AdminLoginLog";
 import UserIndex  from "@/views/UserIndex";
 import PostComments from "@/views/PostComments";
+import UserFansList from "@/views/UserFansList";
+import UserFollowList from "@/views/UserFollowList";
+import UserComments from "@/views/UserComments";
+import UserApprovalPosts from "@/views/UserApprovalPosts";
+import AdminCategory from "@/views/AdminCategory";
 
 Vue.use(VueRouter)
 
@@ -110,6 +115,32 @@ const routes = [
     path: '/post/comments/:postId',
     name: 'PostComments',
     component: PostComments
+  },
+  {
+    // user fans list
+    path: '/user/fans/list',
+    name: 'UserFansList',
+    component: UserFansList
+  },
+  {
+    path: '/user/follow/list',
+    name: 'UserFollowList',
+    component: UserFollowList
+  },
+  {
+    path: '/user/comments/:userId',
+    name: 'UserComments',
+    component: UserComments
+  },
+  {
+    path: '/user/approval/:userId',
+    name: 'UserApprovalPosts',
+    component: UserApprovalPosts
+  },
+  {
+    path: '/admin/category',
+    name: 'AdminCategory',
+    component: AdminCategory
   }
 ]
 

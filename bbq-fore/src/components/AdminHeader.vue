@@ -37,6 +37,14 @@
           </span>
         </el-menu-item>
 
+        <el-menu-item index="4">
+          <span>
+            <el-link type="success" href="/admin/category">
+              CATEGORY MANAGEMENT
+            </el-link>
+          </span>
+        </el-menu-item>
+
         <div style="margin-left: 800px;margin-top: 12px;">
           <el-input size="small" style="width: 200px;"  @keydown.enter.native="search()" v-model="searchData"></el-input>
           <el-button slot="append" icon="el-icon-search" @click="search()" size="small" style="margin-left: 10px"></el-button>

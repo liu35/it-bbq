@@ -19,6 +19,8 @@ public interface PostsService extends IService<Posts> {
 
     Result approval(Long postId, Long userId ,Integer click);
 
+    Result deleteApproval(Long postId, Long userId);
+
     Result views(Long postId);
 
     Result delete(Long postId);

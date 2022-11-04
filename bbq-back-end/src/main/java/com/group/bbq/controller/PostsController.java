@@ -53,6 +53,10 @@ public class PostsController {
     public Result approval(Long postId, Long userId,Integer click) {
         return postsService.approval(postId, userId,click);
     }
+    @GetMapping("/index/delete/approval")
+    public Result unApproval(Long postId, Long userId) {
+        return postsService.deleteApproval(postId, userId);
+    }
 
     @GetMapping("/index/views")
     public Result views(Long postId) {

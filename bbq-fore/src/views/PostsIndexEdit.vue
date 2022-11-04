@@ -42,19 +42,20 @@ export default {
         id: '',
         title: '',
         typeId: '',
+        authorId: this.$store.getters.getUser.id,
         markdownContent: '',
         htmlContent: '',
         category: 'ARTICLE'
       },
       rules: {
         title: [
-          { required: true, message: 'please enter titile', trigger: 'blur' }
+          { required: true, message: 'please enter title', trigger: 'blur' }
         ],
         htmlContent: [
         { required: true, message: 'please enter the short summary', trigger: 'blur' }
         ],
         markdownContent: [
-          { trequired: true, message: 'please enter content', trigger: 'blur' }
+          { required: true, message: 'please enter content', trigger: 'blur' }
         ]
       },
       typeList: []

@@ -53,6 +53,18 @@
           <el-menu-item index="4-1" @click="getUserInfo">
             USER INFO
           </el-menu-item>
+          <el-menu-item index="4-2" @click="getFansList">
+            FANS LIST
+          </el-menu-item>
+          <el-menu-item index="4-3" @click="getFollowList">
+            FOLLOW LIST
+          </el-menu-item>
+          <el-menu-item index="4-4" @click="getComments">
+            MY COMMENTS
+          </el-menu-item>
+          <el-menu-item index="4-5" @click="getApprovalPosts">
+            APPROVAL ARTICLES
+          </el-menu-item>
         </el-submenu>
 
 
@@ -130,8 +142,71 @@ export default {
       }else {
         this.$router.push({name : 'UserIndex', params : {userId : this.user.id}})
       }
-    }
+    },
+    getFansList(){
+
+      if (this.$store.getters.getUser == null) {
+        MessageBox.alert("please login!", 'notice', {
+          confirmButtonText: 'ok',
+          callback: action => {
+            this.$router.push("/login")
+          }
+        })
+
+      }else {
+        this.$router.push({name : 'UserFansList'})
+      }
+
+    },
+    getFollowList(){
+
+      if (this.$store.getters.getUser == null) {
+        MessageBox.alert("please login!", 'notice', {
+          confirmButtonText: 'ok',
+          callback: action => {
+            this.$router.push("/login")
+          }
+        })
+
+      }else {
+        this.$router.push({name : 'UserFollowList'})
+      }
+
+    },
+    getComments(){
+
+      if (this.$store.getters.getUser == null) {
+        MessageBox.alert("please login!", 'notice', {
+          confirmButtonText: 'ok',
+          callback: action => {
+            this.$router.push("/login")
+          }
+        })
+
+      }else {
+        this.$router.push({name : 'UserComments' ,params : {userId:this.user.id}})
+      }
+
+    },
+    getApprovalPosts(){
+
+      if (this.$store.getters.getUser == null) {
+        MessageBox.alert("please login!", 'notice', {
+          confirmButtonText: 'ok',
+          callback: action => {
+            this.$router.push("/login")
+          }
+        })
+
+      }else {
+        this.$router.push({name : 'UserApprovalPosts' ,params : {userId:this.user.id}})
+      }
+
+    },
   },
+
+
+
   created() {
 
     this.getTypeList();

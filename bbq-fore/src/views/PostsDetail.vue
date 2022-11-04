@@ -24,7 +24,8 @@
       <el-button type="primary" @click="copyUrl" size="mini" style="margin-left: 20px">Copy the link to share
       </el-button>
     </div>
-    <div style="text-align: center; margin-left: 20px;" @click="approvals()">
+    <br/>
+    <div style="text-align: center; margin-left: 20px;">
       <span class="el-icon-user">{{ post.authorName }}
         <el-button @click="follow(post.authorId)" v-if="!ownBlog && hasLogin" round
                    size="small">Follow author</el-button>
@@ -202,7 +203,7 @@ export default {
 
     },
     follow(authorId) {
-      this.$axios.get('/follow/add?authorId=' + authorId, {
+      this.$axios.get('/follow/add?authorId=' + authorId + '&followerId=' + this.$store.getters.getUser.id, {
         headers: {
           "Authorization": localStorage.getItem("token")
         }
@@ -219,7 +220,10 @@ export default {
     },
     unfollow(authorId) {
       this.$axios.delete('/follow/delete', {
-        params: {authorId: authorId},
+        params: {authorId: authorId,
+          followerId: this.$store.getters.getUser.id
+        },
+
         headers: {
           "Authorization": localStorage.getItem("token")
         }

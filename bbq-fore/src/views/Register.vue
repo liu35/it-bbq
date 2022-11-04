@@ -6,9 +6,7 @@
         <img class="mlogo"
           src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.51yuansu.com%2Fbackgd%2Fcover%2F00%2F25%2F00%2F5bab24287e38b.jpg%21%2Ffw%2F780%2Fquality%2F90%2Funsharp%2Ftrue%2Fcompress%2Ftrue&refer=http%3A%2F%2Fpic.51yuansu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1666444217&t=207dfc694d94b62ff5821c79f3cf64e1"
           alt="">
-        <span>Account Registration
-          (slogan, example)
-          Endless Content Awaits!
+        <span>
         </span>
       </el-header>
       <el-main>
@@ -36,7 +34,7 @@
           </el-form-item>
 
           <el-form-item label="Avatar" prop="avatar">
-            <el-upload class="avatar-uploader" action="http://localhost:8888/upload" :show-file-list="false"
+            <el-upload class="avatar-uploader" action="http://43.159.34.72:8888/upload" :show-file-list="false"
               :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
               <img v-if="ruleForm.avatar" :src="ruleForm.avatar" class="avatar">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
